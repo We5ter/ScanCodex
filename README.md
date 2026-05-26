@@ -2,9 +2,27 @@
 
 > The security scanner codex for AI agents — powered by [Scanners-Box](https://github.com/We5ter/Scanners-Box).
 
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![MCP](https://img.shields.io/badge/MCP-compatible-orange)
+![Data](https://img.shields.io/badge/data-Scanners--Box-red)
+
 An MCP (Model Context Protocol) server that turns the Scanners-Box arsenal of 300+ open-source security tools into a queryable knowledge base for Claude, Cursor, and any MCP-compatible AI agent.
 
 Ask your AI assistant _"what should I use to scan Kubernetes for misconfigs?"_ and it will consult the codex, recommend the right tools, show you how to install them, and even run the install for you.
+
+```mermaid
+flowchart LR
+    U([User]) -->|ask in natural language| A[AI Agent\nClaude / Cursor]
+    A -->|MCP tool call| S[ScanCodex\nMCP Server]
+    S -->|first run: download & cache| G[(Scanners-Box\nGitHub)]
+    S -->|query| C[(~/.cache/\nscancodex)]
+    G --> C
+    S -->|fetch README| G
+    S -->|git clone + build| L([Local Machine])
+    S -->|results| A
+    A -->|answer| U
+```
 
 ## Tools exposed
 

@@ -2,9 +2,27 @@
 
 > 面向 AI 智能体的安全扫描工具知识库 — 数据来源于 [Scanners-Box](https://github.com/We5ter/Scanners-Box)。
 
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![MCP](https://img.shields.io/badge/MCP-compatible-orange)
+![Data](https://img.shields.io/badge/data-Scanners--Box-red)
+
 ScanCodex 是一个 MCP（模型上下文协议）服务，将 Scanners-Box 收录的 300+ 款开源安全工具转化为可查询的知识库，供 Claude、Cursor 及任何兼容 MCP 的 AI 智能体使用。
 
 只需告诉 AI _"扫描 Kubernetes 集群的安全配置用什么工具？"_，它就会查询知识库、推荐合适的工具、展示安装和使用方法，甚至帮你一键安装。
+
+```mermaid
+flowchart LR
+    U([用户]) -->|自然语言提问| A[AI 智能体\nClaude / Cursor]
+    A -->|MCP 工具调用| S[ScanCodex\nMCP Server]
+    S -->|首次运行：下载并缓存| G[(Scanners-Box\nGitHub)]
+    S -->|查询| C[(~/.cache/\nscancodex)]
+    G --> C
+    S -->|获取 README| G
+    S -->|git clone + 构建| L([本地机器])
+    S -->|返回结果| A
+    A -->|回答| U
+```
 
 ## 暴露的工具
 
