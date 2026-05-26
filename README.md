@@ -1,5 +1,9 @@
 # ScanCodex
 
+[中文文档](README_CN.md)
+
+![ScanCodex](assets/scancodex-logo.jpeg)
+
 > The security scanner codex for AI agents — powered by [Scanners-Box](https://github.com/We5ter/Scanners-Box).
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)

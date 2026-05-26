@@ -1,5 +1,9 @@
 # ScanCodex
 
+[English](README.md)
+
+![ScanCodex](assets/scancodex-logo.jpeg)
+
 > 面向 AI 智能体的安全扫描工具知识库 — 数据来源于 [Scanners-Box](https://github.com/We5ter/Scanners-Box)。
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
