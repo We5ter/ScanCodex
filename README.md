@@ -4,29 +4,29 @@
 
 An MCP (Model Context Protocol) server that turns the Scanners-Box arsenal of 300+ open-source security tools into a queryable knowledge base for Claude, Cursor, and any MCP-compatible AI agent.
 
-Ask your AI assistant _"what should I use to scan Kubernetes for misconfigs?"_ and it will consult the codex and recommend the right tools.
+Ask your AI assistant _"what should I use to scan Kubernetes for misconfigs?"_ and it will consult the codex, recommend the right tools, show you how to install them, and even run the install for you.
 
 ## Tools exposed
 
 | Tool | Description |
 |------|-------------|
-| `list_categories` | Browse all scanner categories |
+| `list_categories` | Browse all 20 scanner categories |
 | `recommend_scanners` | Find scanners by task description, category, or language |
 | `build_workflow` | Get a full tool chain for a pentest phase |
+| `get_tool_usage` | Fetch install & usage instructions from a tool's GitHub README |
+| `install_tool` | Clone and install a tool locally with one command |
 
 ## Quick start
 
-**Prerequisites:** Python 3.10+, [uv](https://docs.astral.sh/uv/)
+**Prerequisites:** Python 3.10+
 
 ```bash
-# Clone both repos side by side
-git clone https://github.com/We5ter/Scanners-Box
 git clone https://github.com/We5ter/ScanCodex
 cd ScanCodex
-
-# Test it locally
-uvx --from . scancodex
+pip install .
 ```
+
+Scanners-Box data is **downloaded automatically** on first use and cached to `~/.cache/scancodex/`. No extra cloning needed.
 
 ## Claude Desktop setup
 
@@ -36,24 +36,8 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 {
   "mcpServers": {
     "scancodex": {
-      "command": "uvx",
-      "args": ["--from", "/path/to/ScanCodex", "scancodex"]
-    }
-  }
-}
-```
-
-If Scanners-Box is not in a sibling directory, set the path explicitly:
-
-```json
-{
-  "mcpServers": {
-    "scancodex": {
-      "command": "uvx",
-      "args": ["--from", "/path/to/ScanCodex", "scancodex"],
-      "env": {
-        "SCANNERS_BOX_README": "/path/to/Scanners-Box/README.md"
-      }
+      "command": "python3",
+      "args": ["-m", "scancodex.server"]
     }
   }
 }
@@ -62,7 +46,7 @@ If Scanners-Box is not in a sibling directory, set the path explicitly:
 ## Claude Code setup
 
 ```bash
-claude mcp add scancodex -- uvx --from /path/to/ScanCodex scancodex
+claude mcp add scancodex -- python3 -m scancodex.server
 ```
 
 ## Example prompts
@@ -75,11 +59,15 @@ I need to scan a Kubernetes cluster for security issues — what do you recommen
 Build me a recon workflow for a pentest engagement.
 
 Show me Go-based vulnerability scanners for container images.
+
+How do I install and use GitHack?
+
+Install subfinder for me.
 ```
 
 ## Pentest phases for build_workflow
 
-`recon` · `vuln_scan` · `web` · `container` · `mobile` · `smart_contract` · `ai_apps` · `malware` · `code_analysis` · `incident`
+`recon` · `vuln_scan` · `web` · `container` · `mobile` · `smart_contract` · `ai_apps` · `malware` · `code_analysis` · `incident` · `a3c`
 
 ## License
 
